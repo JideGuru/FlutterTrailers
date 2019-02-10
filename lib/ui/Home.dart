@@ -24,12 +24,12 @@ class _HomeState extends State<Home> {
   PageController _pageController;
   int _page = 0;
 // Method to get now playing movies from the backend
-  Future<List<Result>> getPopularMovies() async {
+  Future<List<Result>> getPopularMovies(String burl) async {
 
     var httpClient = new HttpClient();
     try {
       // Make the call
-      var request = await httpClient.getUrl(Uri.parse(Config.popularUrl+Config.apiKey));
+      var request = await httpClient.getUrl(Uri.parse(burl+Config.apiKey));
       var response = await request.close();
       if (response.statusCode == HttpStatus.OK) {
         var jsonResponse = await response.transform(utf8.decoder).join();
@@ -165,7 +165,7 @@ class _HomeState extends State<Home> {
             child: new TickerMode(
               enabled: _page == 0,
               child: new FutureBuilder(
-                  future: getPopularMovies(),
+                  future: getPopularMovies(Config.popularUrl),
                   builder:
                       (BuildContext context, AsyncSnapshot<List> snapshot) {
                     if (!snapshot.hasData)
@@ -198,12 +198,39 @@ class _HomeState extends State<Home> {
 
           //Browse
           Offstage(
-              offstage: _page != 1,
-              child: TickerMode(
-                  enabled: _page == 1,
-                  child: Text("Browse")
-
-              )
+            offstage: _page != 1,
+            child: new TickerMode(
+              enabled: _page == 1,
+              child: new FutureBuilder(
+                  future: getPopularMovies(Config.topUrl),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<List> snapshot) {
+                    if (!snapshot.hasData)
+                      // Shows progress indicator until the data is load.
+                      return new Container(
+                        child: new Center(
+                          child: new CircularProgressIndicator(),
+                        ),
+                      );
+                    // Shows the real data with the data retrieved.
+                    List movies = snapshot.data;
+                    return new CustomScrollView(
+                      primary: false,
+                      slivers: <Widget>[
+                        new SliverPadding(
+                          padding: const EdgeInsets.all(10.0),
+                          sliver: new SliverGrid.count(
+                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 10.0,
+                            crossAxisCount: 2,
+                            children:
+                            createPopularMovieCardItem(movies, context),
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+            ),
           ),
 
 
@@ -212,7 +239,7 @@ class _HomeState extends State<Home> {
               offstage: _page != 2,
               child: TickerMode(
                   enabled: _page == 2,
-                  child: Text("Downloads")
+                  child: Text("Downloads will appear here")
               )
           ),
         ],
@@ -238,10 +265,10 @@ class _HomeState extends State<Home> {
 
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.ondemand_video,
+              Icons.trending_up,
               color: Colors.red,),
             title: Text(
-              "Browse",
+              "Top Rated",
               style: TextStyle(
                 color: Colors.red,
               ),
@@ -281,7 +308,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _pageController = new PageController();
-    getPopularMovies();
+//    getPopularMovies(Config.popularUrl);
   }
 
   @override

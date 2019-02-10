@@ -4,4 +4,5 @@ class Config {
   static final String posterPath = "http://image.tmdb.org/t/p/w500/";
   static final String backdropPath = "http://image.tmdb.org/t/p/w500/";
   static final String popularUrl = baseUrl+"movie/"+"popular";
+  static final String topUrl = baseUrl+"movie/"+"top_rated";
 }
