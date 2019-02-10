@@ -1,6 +1,6 @@
-# Flutter Trailers
+# FlutterTrailers
 
 A flutter App to download Movie Trailers.
 
 ## Getting Started
-Still coding. to be ready in a few days lol
+Still coding. To be ready in a few days lol
