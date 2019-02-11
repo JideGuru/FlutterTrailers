@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:trailers/database/db_helper.dart';
 import 'package:trailers/podo/Result.dart';
 import 'package:trailers/ui/Details.dart';
 import 'package:trailers/util/Config.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:trailers/database/Download.dart';
 
 
 
@@ -21,8 +23,24 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  var db = DBHelper();
+  List _downloads;
+
   PageController _pageController;
   int _page = 0;
+
+
+  //get all downloads from db
+  void getDls() async{
+    _downloads = await db.getDownloads();
+    for(int i=0; i<_downloads.length; i++){
+      Download download = Download.map(_downloads[i]);
+      print("DLS: ${download.name}");
+    }
+
+  }
+
+
 // Method to get movies from the backend
   Future<List<Result>> getPopularMovies(String burl) async {
 
@@ -247,7 +265,25 @@ class _HomeState extends State<Home> {
               offstage: _page != 2,
               child: TickerMode(
                   enabled: _page == 2,
-                  child: Text("Downloads will appear here")
+                  child: Center(
+                    child: ListView.builder(
+                      itemCount: _downloads.length,
+                      itemBuilder: (_, int position){
+
+                        return Card(
+                          elevation: 2.0,
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Text("${Download.fromMap(_downloads[position]).name}"),
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.red,
+                              child: Text("${Download.fromMap(_downloads[position]).id}"),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
               )
           ),
         ],
