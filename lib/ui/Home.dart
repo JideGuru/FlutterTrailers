@@ -39,8 +39,7 @@ class _HomeState extends State<Home> {
         List result = data["results"];
         // Get the Movie list
         List<Result> popularList = createPopularMovieList(result);
-        print("RES: ${result[0]["title"]}");
-        // Print the results.
+        // Return the results.
         return popularList;
       } else {
         print("Failed http call.");
@@ -112,7 +111,7 @@ class _HomeState extends State<Home> {
 
                   var router = new MaterialPageRoute(
                       builder: (BuildContext context){
-                        return Details(header: widget.header, id: movie.id);
+                        return Details(header: movie.title, img: imageURL, id: movie.id);
                       }
                   );
 
