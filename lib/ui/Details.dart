@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:trailers/database/Download.dart';
+import 'package:trailers/database/db_helper.dart';
 import 'package:trailers/util/Config.dart';
 import 'package:http/http.dart' as http;
 import 'package:youtube_extractor/youtube_extractor.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class Details extends StatefulWidget {
 
@@ -22,6 +25,7 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
 
+  var db = DBHelper();
   var isLoading = false;
   Map allData;
   List data;
@@ -93,7 +97,7 @@ class _DetailsState extends State<Details> {
 
 
               onTap: (){
-                _showAlertMessage(context, message, data[position]["key"]);
+                _showAlertMessage(context, message, data[position]["key"], data[position]['name']);
               },
             );
           },
@@ -104,15 +108,14 @@ class _DetailsState extends State<Details> {
   }
 
   //Function to Show Alert Dialog for showing download messages
-  void _showAlertMessage(BuildContext context, String message, String key){
+  void _showAlertMessage(BuildContext context, String message, String key, String name){
     var alert = new AlertDialog(
       title: Text("Download Trailer"),
       content: Text("$message"),
-
       actions: <Widget>[
 
         FlatButton(
-          onPressed: ()=>_download(context, key),
+          onPressed: ()=>_download(context, key, name),
           child: Text("Yes"),
         ),
         FlatButton(
@@ -125,22 +128,54 @@ class _DetailsState extends State<Details> {
     showDialog(context: context, builder: (context)=> alert);
   }
 
-  Future _download(BuildContext context, String key) async {
+  Future _download(BuildContext context, String key, String name) async {
     var extractor = YouTubeExtractor();
     Dio dio = new Dio();
     var videoInfo = await extractor.getMediaStreamsAsync(key);
     String vidUrl = videoInfo.video.first.url;
     print('Video URL: $vidUrl');
+
     Navigator.pop(context);
+
     Directory appDocDir = await getExternalStorageDirectory();
-    String appDocPath = appDocDir.path+"/Downloads";
-    print('Path: $appDocPath');
-    await dio.download(vidUrl,appDocPath,
+    String path = appDocDir.path+"/Downloads/$name.mp4";
+    print('Path: $path');
+
+    await dio.download(vidUrl,path,
         // Listen the download progress.
         onProgress: (received, total) {
           print((received / total * 100).toStringAsFixed(0) + "%");
+          String progress = (received / total * 100).toStringAsFixed(0) + "%";
+          Download saveDownload = Download.fromMap({
+            "name": "$name",
+            "path": "$path"
+          });
+          db.saveDownloads(saveDownload);
+          _showDownloadMessage(context, progress);
         }
     );
 
+  }
+
+  //Function to Show Alert Dialog for showing download progress
+  void _showDownloadMessage(BuildContext context, String progress){
+    var alert = new AlertDialog(
+      title: Text("Downloading"),
+      content: CircularPercentIndicator(
+        radius: 60.0,
+        lineWidth: 5.0,
+        percent: 1.0,
+        center: new Text(progress),
+        progressColor: Colors.green,
+      ),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: (){Navigator.pop(context);},
+          child: Text("Ok"),
+        )
+      ],
+    );
+
+    showDialog(context: context, builder: (context)=> alert);
   }
 }
