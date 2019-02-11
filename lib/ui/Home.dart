@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
 
   PageController _pageController;
   int _page = 0;
-// Method to get now playing movies from the backend
+// Method to get movies from the backend
   Future<List<Result>> getPopularMovies(String burl) async {
 
     var httpClient = new HttpClient();
@@ -298,7 +298,6 @@ class _HomeState extends State<Home> {
       ],
         onTap: navigationTapped,
         currentIndex: _page,
-//        onTap: (int i)=>debugPrint("Tap $i"),
       ),
     );
   }
@@ -316,7 +315,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _pageController = new PageController();
-//    getPopularMovies(Config.popularUrl);
   }
 
   @override
