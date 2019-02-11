@@ -144,7 +144,16 @@ class _HomeState extends State<Home> {
             color: Colors.white,
           ),
         ),
+
         actions: <Widget>[
+          IconButton(
+              icon:Icon(
+                Icons.info_outline,
+                color: Colors.white,
+              ),
+              onPressed: () => _showAlertInfo(context)
+          ),
+
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () => debugPrint("1PRESSED!!!"),
@@ -323,4 +332,21 @@ class _HomeState extends State<Home> {
   }
 
 
+  //Function to Show Alert Dialog for showing app details
+  void _showAlertInfo(BuildContext context){
+    var alert = new AlertDialog(
+      title: Text("Info"),
+      content: Text("Made With Flutter by JideGuru"),
+
+      actions: <Widget>[
+
+        FlatButton(
+          onPressed: (){Navigator.pop(context);},
+          child: Text("OK"),
+        )
+      ],
+    );
+
+    showDialog(context: context, builder: (context)=> alert);
+  }
 }
