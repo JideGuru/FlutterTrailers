@@ -24,16 +24,16 @@ A flutter App to download Movie Trailers.
 4. Start working.
 
 
-# Author(s)
+## Author(s)
 **Olusegun Festus Babajide**
 
 
-# Contributors
+## Contributors
 **404 Not Found.**
 Contributions are welcome
 
 
-# Disclaimer
+## Disclaimer
 This code is only intended for learning purposes, i am not responsible for anything you use it for.
 
 Pardon my Bad English 😔
