@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:trailers/util/Config.dart';
 import 'package:http/http.dart' as http;
+import 'package:youtube_extractor/youtube_extractor.dart';
+import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Details extends StatefulWidget {
 
@@ -89,7 +93,7 @@ class _DetailsState extends State<Details> {
 
 
               onTap: (){
-                _showAlertMessage(context, message);
+                _showAlertMessage(context, message, data[position]["key"]);
               },
             );
           },
@@ -100,7 +104,7 @@ class _DetailsState extends State<Details> {
   }
 
   //Function to Show Alert Dialog for showing download messages
-  void _showAlertMessage(BuildContext context, String message){
+  void _showAlertMessage(BuildContext context, String message, String key){
     var alert = new AlertDialog(
       title: Text("Download Trailer"),
       content: Text("$message"),
@@ -108,7 +112,7 @@ class _DetailsState extends State<Details> {
       actions: <Widget>[
 
         FlatButton(
-          onPressed: (){Navigator.pop(context);},
+          onPressed: ()=>_download(context, key),
           child: Text("Yes"),
         ),
         FlatButton(
@@ -119,5 +123,24 @@ class _DetailsState extends State<Details> {
     );
 
     showDialog(context: context, builder: (context)=> alert);
+  }
+
+  Future _download(BuildContext context, String key) async {
+    var extractor = YouTubeExtractor();
+    Dio dio = new Dio();
+    var videoInfo = await extractor.getMediaStreamsAsync(key);
+    String vidUrl = videoInfo.video.first.url;
+    print('Video URL: $vidUrl');
+    Navigator.pop(context);
+    Directory appDocDir = await getExternalStorageDirectory();
+    String appDocPath = appDocDir.path+"/Downloads";
+    print('Path: $appDocPath');
+    await dio.download(vidUrl,appDocPath,
+        // Listen the download progress.
+        onProgress: (received, total) {
+          print((received / total * 100).toStringAsFixed(0) + "%");
+        }
+    );
+
   }
 }
