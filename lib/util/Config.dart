@@ -5,4 +5,5 @@ class Config {
   static final String backdropPath = "http://image.tmdb.org/t/p/w500/";
   static final String popularUrl = baseUrl+"movie/"+"popular";
   static final String topUrl = baseUrl+"movie/"+"top_rated";
+  static final String ytImg = "https://img.youtube.com/vi/";
 }
