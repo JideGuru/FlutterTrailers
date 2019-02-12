@@ -20,7 +20,7 @@ A flutter App to download Movie Trailers.
 
 1. Fork and clone.
 2. import project to your IDE.
-3. Sync Gradle.
+3. Build and Sync Gradle.
 4. Start working.
 
 
