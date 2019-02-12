@@ -46,7 +46,7 @@ class DBHelper{
       "CREATE TABLE IF NOT EXISTS $tableName("
           "$columnId INTEGER PRIMARY KEY , "
           "$columnName TEXT, "
-          "$columnPath TEXT, "
+          "$columnPath TEXT"
           ")"
     );
   }
