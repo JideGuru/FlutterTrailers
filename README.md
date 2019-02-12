@@ -30,7 +30,9 @@ A flutter App to download Movie Trailers.
 
 ## Contributors
 **404 Not Found.**
-Contributions are welcome
+
+Pull Requests are welcome if you fix any issues,
+you can also open an issue.
 
 
 ## Disclaimer
@@ -38,7 +40,7 @@ This code is only intended for learning purposes, i am not responsible for anyth
 
 Pardon my Bad English 😔
 
-Give a **Star** if you like what you see.
+Give a ⭐️ if you like what you see.
 
 ## Getting Started
 Still coding. To be ready in a few days lol
