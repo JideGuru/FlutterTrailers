@@ -17,11 +17,11 @@ dependencies:
     sdk: flutter
   http:
   transparent_image: ^0.1.0
-  youtube_extractor: ^1.0.2
   dio: 2.0.0
-  path_provider: ^0.5.0+1
-  percent_indicator: "^1.0.13"
+  path_provider:
+  percent_indicator: ^1.0.13
   sqflite: any
+  youtube_extractor: ^1.0.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

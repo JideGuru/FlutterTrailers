@@ -44,7 +44,7 @@ class DBHelper{
   void _onCreate(Database db, int newVersion) async{
     await db.execute(
       "CREATE TABLE IF NOT EXISTS $tableName("
-          "$columnId INTEGER PRIMARY KEY AUTO INCREAMENT, "
+          "$columnId INTEGER PRIMARY KEY , "
           "$columnName TEXT, "
           "$columnPath TEXT, "
           ")"
