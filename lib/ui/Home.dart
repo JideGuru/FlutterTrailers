@@ -267,7 +267,7 @@ class _HomeState extends State<Home> {
                   enabled: _page == 2,
                   child: Center(
                     child: ListView.builder(
-                      itemCount: _downloads.length,
+                      itemCount: _downloads == null ? 0 : _downloads.length,
                       itemBuilder: (_, int position){
 
                         return Card(
