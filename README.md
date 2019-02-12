@@ -16,6 +16,7 @@ A flutter App to download Movie Trailers.
 
 ## Usage
 **Very Important**
+
 [TMDB API](https://www.themoviedb.org) was used in making this app so make sure to read the [Documentation](https://www.themoviedb.org/documentation/api).
 
 1. Fork and clone.
