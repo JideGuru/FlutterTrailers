@@ -152,7 +152,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       //Background Color
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade100,
 
       //AppBar
       appBar: AppBar(
@@ -297,12 +297,12 @@ class _HomeState extends State<Home> {
         BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: Colors.red,
+              color: Colors.blue,
             ),
             title: Text(
               "Home",
               style: TextStyle(
-                color: Colors.red,
+                color: Colors.blue,
               ),
             )
         ),
@@ -310,11 +310,11 @@ class _HomeState extends State<Home> {
         BottomNavigationBarItem(
             icon: Icon(
               Icons.trending_up,
-              color: Colors.red,),
+              color: Colors.blue,),
             title: Text(
               "Top Rated",
               style: TextStyle(
-                color: Colors.red,
+                color: Colors.blue,
               ),
             )
         ),
@@ -322,11 +322,11 @@ class _HomeState extends State<Home> {
         BottomNavigationBarItem(
             icon: Icon(
               Icons.arrow_downward,
-              color: Colors.red,),
+              color: Colors.blue,),
             title: Text(
               "Downloads",
               style: TextStyle(
-                color: Colors.red,
+                color: Colors.blue,
               ),
             )
         ),
@@ -334,6 +334,7 @@ class _HomeState extends State<Home> {
       ],
         onTap: navigationTapped,
         currentIndex: _page,
+        fixedColor: Colors.white,
       ),
     );
   }
