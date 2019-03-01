@@ -134,7 +134,10 @@ class _DetailsState extends State<Details> {
       actions: <Widget>[
 
         FlatButton(
-          onPressed: ()=>_download(context, key, name),
+          onPressed: (){
+            _download(context, key, name);
+            Navigator.pop(context);
+            },
           child: Text("Yes"),
         ),
         FlatButton(
@@ -154,11 +157,11 @@ class _DetailsState extends State<Details> {
     String vidUrl = videoInfo.video.first.url;
     print('Video URL: $vidUrl');
 
-    Navigator.pop(context);
+//    Navigator.pop(context);
 
     Directory appDocDir = await getExternalStorageDirectory();
     String path = appDocDir.path+"/Downloads/$name.mp4";
-    print('Path: $path');
+//    print('Path: $path');
 
     await dio.download(vidUrl,path,
         // Listen the download progress.

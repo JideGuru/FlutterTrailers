@@ -116,7 +116,7 @@ class _HomeState extends State<Home> {
       for (int i = 0; i < lengthOfList; i++) {
         Result movie = movies[i];
         // Image URL
-        var imageURL = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+        var imageURL = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
         // List item created with an image of the poster
         var listItem = new GridTile(
             footer: new GridTileBar(
