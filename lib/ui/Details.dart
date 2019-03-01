@@ -61,10 +61,19 @@ class _DetailsState extends State<Details> {
       backgroundColor: Colors.white,
 
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.blue,
+          ),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
           widget.header,
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.blue,
           ),
         ),
       ),
@@ -80,15 +89,25 @@ class _DetailsState extends State<Details> {
           itemCount: data == null ? 0 : data.length,
           padding: EdgeInsets.all(16.0),
           separatorBuilder: (BuildContext context, int position){
-            return Divider();
+            return Divider(color: Colors.blue,);
           },
           itemBuilder: (BuildContext context, int position) {
             String img = "${Config.ytImg}${data[position]["key"]}/0.jpg";
             String message = "Are you sure you want to download ${data[position]['name']}?";
             return ListTile(
-              title: Text("${data[position]['name']}"),
+              title: Text(
+                "${data[position]['name']}",
+//                style: TextStyle(
+//                  color: Colors.blue,
+//                ),
+              ),
 
-              subtitle: Text("${data[position]['site']}"),
+              subtitle: Text(
+                "${data[position]['site']}",
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
 
               leading: CircleAvatar(
                 backgroundColor: Colors.white,
