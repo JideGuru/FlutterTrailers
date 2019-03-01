@@ -159,7 +159,7 @@ class _HomeState extends State<Home> {
         title: Text(
           widget.header,
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.blue,
           ),
         ),
 
@@ -167,7 +167,7 @@ class _HomeState extends State<Home> {
           IconButton(
               icon:Icon(
                 Icons.info_outline,
-                color: Colors.white,
+                color: Colors.blue,
               ),
               onPressed: () => _showAlertInfo(context)
           ),
@@ -175,7 +175,7 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () => debugPrint("1PRESSED!!!"),
-            color: Colors.white,
+            color: Colors.blue,
           )
         ],
       ),
