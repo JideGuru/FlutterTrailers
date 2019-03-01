@@ -161,9 +161,12 @@ class _DetailsState extends State<Details> {
 
     Directory appDocDir = await getExternalStorageDirectory();
     String path = appDocDir.path+"/Downloads/$name.mp4";
+    var myFile = new File(path);
+    print("file created");
 //    print('Path: $path');
 
-    await dio.download(vidUrl,path,
+    String f = myFile.toString();
+    await dio.download(vidUrl,f,
         // Listen the download progress.
         onProgress: (received, total) {
           print((received / total * 100).toStringAsFixed(0) + "%");
